@@ -1,0 +1,198 @@
+{
+  "summary": {
+    "totalScenarios": 3,
+    "timestamp": "2026-05-03T21:19:25.725Z"
+  },
+  "scenarios": [
+    {
+      "name": "Permission Change Mid-Flow",
+      "expectedBehavior": "Agent should detect permission loss and handle gracefully",
+      "startTime": "2026-05-03T21:19:00.803Z",
+      "actualBehavior": "Unexpectedly succeeded - permission detection failed; PR creation unexpectedly succeeded",
+      "failurePoint": "None - unexpected success",
+      "endTime": "2026-05-03T21:19:07.075Z",
+      "logs": [
+        {
+          "timestamp": "2026-05-03T21:19:02.067Z",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "permission-test-repo",
+            "repoId": 4
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T21:19:04.584Z",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "owner": "octocat",
+            "repo": "permission-test-repo",
+            "branch": "feature/permission-test",
+            "base": "main"
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T21:19:05.830Z",
+          "action": "CREATE_FILE",
+          "data": {
+            "owner": "octocat",
+            "repo": "permission-test-repo",
+            "path": "test-file-permission.txt",
+            "branch": "feature/permission-test",
+            "message": "Add test file after permission loss"
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T21:19:07.074Z",
+          "action": "CREATE_PULL_REQUEST",
+          "data": {
+            "owner": "octocat",
+            "repo": "permission-test-repo",
+            "title": "Permission Test PR",
+            "head": "feature/permission-test",
+            "base": "main",
+            "prNumber": 1
+          },
+          "success": true
+        }
+      ],
+      "suggestedFix": "Implement permission validation before each write operation and handle permission changes gracefully"
+    },
+    {
+      "name": "Stale/Inconsistent State",
+      "expectedBehavior": "Agent should validate PR state before attempting merge",
+      "startTime": "2026-05-03T21:19:07.075Z",
+      "actualBehavior": "Merge unexpectedly succeeded - state validation failed; State validation correctly detected closed PR",
+      "failurePoint": "None - unexpected success",
+      "endTime": "2026-05-03T21:19:15.339Z",
+      "logs": [
+        {
+          "timestamp": "2026-05-03T21:19:08.583Z",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "stale-state-test-repo",
+            "repoId": 5
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T21:19:11.081Z",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "owner": "octocat",
+            "repo": "stale-state-test-repo",
+            "branch": "feature/stale-state-test",
+            "base": "main"
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T21:19:12.316Z",
+          "action": "CREATE_FILE",
+          "data": {
+            "owner": "octocat",
+            "repo": "stale-state-test-repo",
+            "path": "stale-state-file.txt",
+            "branch": "feature/stale-state-test",
+            "message": "Add stale state test file"
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T21:19:12.870Z",
+          "action": "CREATE_PULL_REQUEST",
+          "data": {
+            "owner": "octocat",
+            "repo": "stale-state-test-repo",
+            "title": "Stale State Test PR",
+            "head": "feature/stale-state-test",
+            "base": "main",
+            "prNumber": 1
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T21:19:14.103Z",
+          "action": "MERGE_PULL_REQUEST",
+          "data": {
+            "owner": "octocat",
+            "repo": "stale-state-test-repo",
+            "pullNumber": 1,
+            "merged": true
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T21:19:15.338Z",
+          "action": "GET_PULL_REQUEST",
+          "data": {
+            "owner": "octocat",
+            "repo": "stale-state-test-repo",
+            "pullNumber": 1,
+            "state": "closed"
+          },
+          "success": true
+        }
+      ],
+      "suggestedFix": "Always validate current state from source before operations, don't rely on cached data"
+    },
+    {
+      "name": "API Error / Partial Failure",
+      "expectedBehavior": "Agent should handle partial failures and retry appropriately",
+      "startTime": "2026-05-03T21:19:15.339Z",
+      "actualBehavior": "PR creation succeeded after 3 attempts",
+      "failurePoint": "None - recovered after retries",
+      "endTime": "2026-05-03T21:19:25.723Z",
+      "logs": [
+        {
+          "timestamp": "2026-05-03T21:19:16.634Z",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "api-error-test-repo",
+            "repoId": 6
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T21:19:19.054Z",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "owner": "octocat",
+            "repo": "api-error-test-repo",
+            "branch": "feature/api-error-test",
+            "base": "main"
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T21:19:20.242Z",
+          "action": "CREATE_FILE",
+          "data": {
+            "owner": "octocat",
+            "repo": "api-error-test-repo",
+            "path": "api-error-file.txt",
+            "branch": "feature/api-error-test",
+            "message": "Add API error test file"
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T21:19:25.723Z",
+          "action": "CREATE_PULL_REQUEST",
+          "data": {
+            "owner": "octocat",
+            "repo": "api-error-test-repo",
+            "title": "API Error Test PR",
+            "head": "feature/api-error-test",
+            "base": "main",
+            "prNumber": 1
+          },
+          "success": true
+        }
+      ],
+      "suggestedFix": "Implement exponential backoff retry logic for transient API failures"
+    }
+  ]
+}

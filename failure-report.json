@@ -1,0 +1,68 @@
+{
+  "summary": {
+    "totalScenarios": 3,
+    "timestamp": "2026-05-03T21:17:51.868Z"
+  },
+  "scenarios": [
+    {
+      "name": "Permission Change Mid-Flow",
+      "expectedBehavior": "Agent should detect permission loss and handle gracefully",
+      "startTime": "2026-05-03T21:17:50.194Z",
+      "actualBehavior": "Unexpected failure: Unauthorized",
+      "failurePoint": "Repository creation or branch creation",
+      "endTime": "2026-05-03T21:17:51.300Z",
+      "logs": [
+        {
+          "timestamp": "2026-05-03T21:17:51.300Z",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "error": "Unauthorized",
+            "repo": "permission-test-repo"
+          },
+          "success": false
+        }
+      ],
+      "suggestedFix": "Implement permission validation before each write operation and handle permission changes gracefully"
+    },
+    {
+      "name": "Stale/Inconsistent State",
+      "expectedBehavior": "Agent should validate PR state before attempting merge",
+      "startTime": "2026-05-03T21:17:51.301Z",
+      "actualBehavior": "Unexpected failure: Unauthorized",
+      "failurePoint": "Setup phase (repo/branch/commit creation)",
+      "endTime": "2026-05-03T21:17:51.575Z",
+      "logs": [
+        {
+          "timestamp": "2026-05-03T21:17:51.575Z",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "error": "Unauthorized",
+            "repo": "stale-state-test-repo"
+          },
+          "success": false
+        }
+      ],
+      "suggestedFix": "Always validate current state from source before operations, don't rely on cached data"
+    },
+    {
+      "name": "API Error / Partial Failure",
+      "expectedBehavior": "Agent should handle partial failures and retry appropriately",
+      "startTime": "2026-05-03T21:17:51.576Z",
+      "actualBehavior": "Unexpected failure: Unauthorized",
+      "failurePoint": "Setup phase",
+      "endTime": "2026-05-03T21:17:51.867Z",
+      "logs": [
+        {
+          "timestamp": "2026-05-03T21:17:51.867Z",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "error": "Unauthorized",
+            "repo": "api-error-test-repo"
+          },
+          "success": false
+        }
+      ],
+      "suggestedFix": "Implement exponential backoff retry logic for transient API failures"
+    }
+  ]
+}

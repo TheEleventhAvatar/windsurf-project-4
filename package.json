@@ -1,0 +1,25 @@
+{
+  "name": "agent-failure-simulator",
+  "version": "1.0.0",
+  "description": "Simulate real-world failure scenarios in multi-step agent workflows using Archal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "archal:run": "npx archal run",
+    "archal:github": "npx archal twin start github"
+  },
+  "keywords": [
+    "archal",
+    "agent",
+    "failure-simulation",
+    "testing"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "archal": "^0.9.14"
+  },
+  "dependencies": {
+    "@octokit/core": "^7.0.6"
+  }
+}

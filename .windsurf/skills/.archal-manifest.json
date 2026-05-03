@@ -1,0 +1,22 @@
+{
+  "version": "0.9.14",
+  "installedAt": "2026-05-03T21:08:27.376Z",
+  "skills": {
+    "archal-eval": {
+      "version": "0.9.14",
+      "checksum": "7a33eea8dd8eddc6dfa5ac0c3641cf5d4f1dd4666db0a91b729397655333d3e0"
+    },
+    "archal-onboard": {
+      "version": "0.9.14",
+      "checksum": "dafd100674d26b386cdccc44a081ae3281ee31e2e78898ac49f74f59ca3ce7b6"
+    },
+    "archal-scenario": {
+      "version": "0.9.14",
+      "checksum": "d11e76df9338a15ca9467ed4b3a52f183b6e03dcdf3a5d71a4d9f93ed8eb1dd3"
+    },
+    "archal-vitest": {
+      "version": "0.9.14",
+      "checksum": "cf252fc82af2d494831033f57636c6dbd2658233035482a4678ff57abe01402a"
+    }
+  }
+}
