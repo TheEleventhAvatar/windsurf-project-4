@@ -1,0 +1,273 @@
+{
+  "summary": {
+    "totalScenarios": 3,
+    "timestamp": "2026-05-03T23:38:36.200Z"
+  },
+  "scenarios": [
+    {
+      "name": "REAL Permission Downgrade",
+      "expectedBehavior": "Agent should be blocked from write operations after permission loss",
+      "startTime": "2026-05-03T23:38:10.654Z",
+      "actualBehavior": "Unexpected failure: Forbidden - Insufficient permissions for repository",
+      "failurePoint": "Repository creation or branch creation",
+      "endTime": "2026-05-03T23:38:10.663Z",
+      "logs": [
+        {
+          "timestamp": "2026-05-03T23:38:10.663Z",
+          "action": "REQUEST_BLOCKED",
+          "data": {
+            "error": "Forbidden - Insufficient permissions for repository",
+            "method": "POST",
+            "path": "/user/repos",
+            "context": {
+              "operationCount": 7,
+              "requestNumber": 1
+            }
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-03T23:38:10.663Z",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "error": "Forbidden - Insufficient permissions for repository",
+            "repo": "real-permission-test-repo"
+          },
+          "success": false
+        }
+      ],
+      "suggestedFix": "Implement permission validation and graceful handling of permission loss"
+    },
+    {
+      "name": "REAL Stale State",
+      "expectedBehavior": "Agent should detect inconsistent PR state and handle appropriately",
+      "startTime": "2026-05-03T23:38:10.664Z",
+      "actualBehavior": "Merge succeeded - state inconsistency may not have been detected",
+      "failurePoint": "State inconsistency not detected",
+      "endTime": "2026-05-03T23:38:17.064Z",
+      "logs": [
+        {
+          "timestamp": "2026-05-03T23:38:11.812Z",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "real-stale-state-test-repo",
+            "repoId": 4
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T23:38:14.097Z",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "owner": "octocat",
+            "repo": "real-stale-state-test-repo",
+            "branch": "feature/stale-state-test",
+            "base": "main"
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T23:38:14.797Z",
+          "action": "CREATE_FILE",
+          "data": {
+            "owner": "octocat",
+            "repo": "real-stale-state-test-repo",
+            "path": "stale-state-file.txt",
+            "branch": "feature/stale-state-test",
+            "message": "Add stale state test file"
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T23:38:15.941Z",
+          "action": "CREATE_PULL_REQUEST",
+          "data": {
+            "owner": "octocat",
+            "repo": "real-stale-state-test-repo",
+            "title": "Stale State Test PR",
+            "head": "feature/stale-state-test",
+            "base": "main",
+            "prNumber": 1
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T23:38:17.064Z",
+          "action": "MERGE_PULL_REQUEST",
+          "data": {
+            "owner": "octocat",
+            "repo": "real-stale-state-test-repo",
+            "pullNumber": 1,
+            "merged": true
+          },
+          "success": true
+        }
+      ],
+      "suggestedFix": "Implement state validation and conflict resolution for stale data"
+    },
+    {
+      "name": "REAL Intermittent Failures",
+      "expectedBehavior": "Agent should handle random API failures and retry appropriately",
+      "startTime": "2026-05-03T23:38:17.065Z",
+      "actualBehavior": "PR creation succeeded after 5 attempts with real failures",
+      "failurePoint": "None - recovered after retries",
+      "endTime": "2026-05-03T23:38:36.174Z",
+      "logs": [
+        {
+          "timestamp": "2026-05-03T23:38:18.194Z",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "real-api-error-test-repo",
+            "repoId": 5
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T23:38:20.514Z",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "owner": "octocat",
+            "repo": "real-api-error-test-repo",
+            "branch": "feature/api-error-test",
+            "base": "main"
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T23:38:21.654Z",
+          "action": "CREATE_FILE",
+          "data": {
+            "owner": "octocat",
+            "repo": "real-api-error-test-repo",
+            "path": "api-error-file.txt",
+            "branch": "feature/api-error-test",
+            "message": "Add API error test file"
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-03T23:38:21.655Z",
+          "action": "REQUEST_BLOCKED",
+          "data": {
+            "error": "Server Error: The request timed out",
+            "method": "POST",
+            "path": "/repos/octocat/real-api-error-test-repo/pulls",
+            "context": {
+              "operationCount": 18,
+              "requestNumber": 4
+            }
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-03T23:38:21.656Z",
+          "action": "CREATE_PULL_REQUEST",
+          "data": {
+            "error": "Server Error: The request timed out",
+            "owner": "octocat",
+            "repo": "real-api-error-test-repo",
+            "title": "API Error Test PR",
+            "head": "feature/api-error-test",
+            "base": "main"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-03T23:38:24.678Z",
+          "action": "REQUEST_BLOCKED",
+          "data": {
+            "error": "Server Error: The request timed out",
+            "method": "POST",
+            "path": "/repos/octocat/real-api-error-test-repo/pulls",
+            "context": {
+              "operationCount": 19,
+              "requestNumber": 6
+            }
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-03T23:38:24.678Z",
+          "action": "CREATE_PULL_REQUEST",
+          "data": {
+            "error": "Server Error: The request timed out",
+            "owner": "octocat",
+            "repo": "real-api-error-test-repo",
+            "title": "API Error Test PR",
+            "head": "feature/api-error-test",
+            "base": "main"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-03T23:38:27.681Z",
+          "action": "REQUEST_BLOCKED",
+          "data": {
+            "error": "Server Error: The request timed out",
+            "method": "POST",
+            "path": "/repos/octocat/real-api-error-test-repo/pulls",
+            "context": {
+              "operationCount": 20,
+              "requestNumber": 8
+            }
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-03T23:38:27.681Z",
+          "action": "CREATE_PULL_REQUEST",
+          "data": {
+            "error": "Server Error: The request timed out",
+            "owner": "octocat",
+            "repo": "real-api-error-test-repo",
+            "title": "API Error Test PR",
+            "head": "feature/api-error-test",
+            "base": "main"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-03T23:38:30.683Z",
+          "action": "REQUEST_BLOCKED",
+          "data": {
+            "error": "Server Error: The request timed out",
+            "method": "POST",
+            "path": "/repos/octocat/real-api-error-test-repo/pulls",
+            "context": {
+              "operationCount": 21,
+              "requestNumber": 10
+            }
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-03T23:38:30.683Z",
+          "action": "CREATE_PULL_REQUEST",
+          "data": {
+            "error": "Server Error: The request timed out",
+            "owner": "octocat",
+            "repo": "real-api-error-test-repo",
+            "title": "API Error Test PR",
+            "head": "feature/api-error-test",
+            "base": "main"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-03T23:38:36.123Z",
+          "action": "CREATE_PULL_REQUEST",
+          "data": {
+            "owner": "octocat",
+            "repo": "real-api-error-test-repo",
+            "title": "API Error Test PR",
+            "head": "feature/api-error-test",
+            "base": "main",
+            "prNumber": 1
+          },
+          "success": true
+        }
+      ],
+      "suggestedFix": "Implement robust retry logic with exponential backoff for intermittent failures"
+    }
+  ]
+}
