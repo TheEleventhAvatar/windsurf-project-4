@@ -1,0 +1,1942 @@
+{
+  "timestamp": "2026-05-04T00:46:10.175Z",
+  "agentCount": 5,
+  "summary": {
+    "totalOperations": 84,
+    "blockedRequests": 5,
+    "stressFailures": 10,
+    "rateLimits": 0
+  },
+  "logs": [
+    {
+      "timestamp": "2026-05-04T00:45:00.312Z",
+      "agentId": "Agent-1",
+      "action": "REQUEST_BLOCKED",
+      "data": {
+        "error": "Service Unavailable: System experiencing high load",
+        "method": "POST",
+        "path": "/user/repos",
+        "context": {
+          "operationCount": 1,
+          "requestNumber": 1,
+          "agentId": "Agent-1"
+        }
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:00.313Z",
+      "agentId": "Agent-1",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "error": "Service Unavailable: System experiencing high load",
+        "repo": "stress-repo"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:04.111Z",
+      "agentId": "Agent-1",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "repo": "race-test-1777855502943",
+        "repoId": 5
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:45:05.275Z",
+      "agentId": "Agent-1",
+      "action": "REQUEST_BLOCKED",
+      "data": {
+        "error": "Service Unavailable: System experiencing high load",
+        "method": "POST",
+        "path": "/repos/octocat/race-test-1777855502943-Agent-1-1777855502943/git/refs",
+        "context": {
+          "operationCount": 4,
+          "requestNumber": 4,
+          "agentId": "Agent-1"
+        }
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:05.275Z",
+      "agentId": "Agent-1",
+      "action": "CREATE_BRANCH",
+      "data": {
+        "error": "Service Unavailable: System experiencing high load",
+        "owner": "octocat",
+        "repo": "race-test-1777855502943-Agent-1-1777855502943",
+        "branch": "race-condition-branch"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:06.480Z",
+      "agentId": "Agent-1",
+      "action": "CREATE_BRANCH",
+      "data": {
+        "error": "Not Found",
+        "owner": "octocat",
+        "repo": "stress-retry-retry-0",
+        "branch": "retry-branch-1"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:06.480Z",
+      "agentId": "Agent-1",
+      "action": "STRESS_RETRY_FAILED",
+      "data": {
+        "error": "Not Found",
+        "attempt": 1,
+        "maxRetries": 8
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:09.420Z",
+      "agentId": "Agent-1",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "repo": "stress-retry-retry-0",
+        "repoId": 7
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:45:09.421Z",
+      "agentId": "Agent-1",
+      "action": "STRESS_RETRY_SUCCESS",
+      "data": {
+        "attempt": 2,
+        "operation": ""
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:46:04.152Z",
+      "agentId": "Agent-1",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "Request body too large",
+        "owner": "octocat",
+        "repo": "stress-partial",
+        "path": "large-file.txt",
+        "branch": "partial-commit-0"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:04.152Z",
+      "agentId": "Agent-1",
+      "action": "PARTIAL_COMMIT_FAILED",
+      "data": {
+        "error": "Request body too large",
+        "repoName": "stress-partial",
+        "branchName": "partial-commit-0"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:04.236Z",
+      "agentId": "Agent-1",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "socket hang up",
+        "owner": "octocat",
+        "repo": "stress-partial",
+        "path": "recovery-file.txt",
+        "branch": "partial-commit-0"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:04.236Z",
+      "agentId": "Agent-1",
+      "action": "PARTIAL_COMMIT_RECOVERY_FAILED",
+      "data": {
+        "error": "socket hang up",
+        "repoName": "stress-partial",
+        "branchName": "partial-commit-0"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:07.517Z",
+      "agentId": "Agent-1",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "error": "State rehydration failed: Corrupted session data",
+        "repo": "stress-rehydrate-rehydrate-0"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:07.518Z",
+      "agentId": "Agent-1",
+      "action": "STATE_REHYDRATION_FAILED",
+      "data": {
+        "error": "State rehydration failed: Corrupted session data",
+        "repoName": "stress-rehydrate-rehydrate-0"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:09.586Z",
+      "agentId": "Agent-1",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "repo": "stress-rehydrate-rehydrate-0-recovered",
+        "repoId": 13
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:46:09.586Z",
+      "agentId": "Agent-1",
+      "action": "STATE_REHYDRATION_RECOVERY",
+      "data": {
+        "repoName": "stress-rehydrate-rehydrate-0"
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:45:02.933Z",
+      "agentId": "Agent-2",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "repo": "stress-repo",
+        "repoId": 4
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:45:07.887Z",
+      "agentId": "Agent-2",
+      "action": "CREATE_BRANCH",
+      "data": {
+        "error": "Not Found",
+        "owner": "octocat",
+        "repo": "stress-retry-retry-1",
+        "branch": "retry-branch-1"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:07.888Z",
+      "agentId": "Agent-2",
+      "action": "STRESS_RETRY_FAILED",
+      "data": {
+        "error": "Not Found",
+        "attempt": 1,
+        "maxRetries": 8
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:10.890Z",
+      "agentId": "Agent-2",
+      "action": "CREATE_BRANCH",
+      "data": {
+        "error": "Not Found",
+        "owner": "octocat",
+        "repo": "stress-retry-retry-1",
+        "branch": "retry-branch-2"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:10.890Z",
+      "agentId": "Agent-2",
+      "action": "STRESS_RETRY_FAILED",
+      "data": {
+        "error": "Not Found",
+        "attempt": 2,
+        "maxRetries": 8
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:14.796Z",
+      "agentId": "Agent-2",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "Not Found",
+        "owner": "octocat",
+        "repo": "stress-retry-retry-1",
+        "path": "retry-file-3.txt",
+        "branch": "main"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:14.796Z",
+      "agentId": "Agent-2",
+      "action": "STRESS_RETRY_FAILED",
+      "data": {
+        "error": "Not Found",
+        "attempt": 3,
+        "maxRetries": 8
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:20.842Z",
+      "agentId": "Agent-2",
+      "action": "CREATE_BRANCH",
+      "data": {
+        "error": "Not Found",
+        "owner": "octocat",
+        "repo": "stress-retry-retry-1",
+        "branch": "retry-branch-4"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:20.843Z",
+      "agentId": "Agent-2",
+      "action": "STRESS_RETRY_FAILED",
+      "data": {
+        "error": "Not Found",
+        "attempt": 4,
+        "maxRetries": 8
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:31.501Z",
+      "agentId": "Agent-2",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "repo": "stress-retry-retry-1",
+        "repoId": 9
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:45:31.501Z",
+      "agentId": "Agent-2",
+      "action": "STRESS_RETRY_SUCCESS",
+      "data": {
+        "attempt": 5,
+        "operation": ""
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:46:05.788Z",
+      "agentId": "Agent-2",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "Request body too large",
+        "owner": "octocat",
+        "repo": "stress-partial",
+        "path": "large-file.txt",
+        "branch": "partial-commit-1"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:05.789Z",
+      "agentId": "Agent-2",
+      "action": "PARTIAL_COMMIT_FAILED",
+      "data": {
+        "error": "Request body too large",
+        "repoName": "stress-partial",
+        "branchName": "partial-commit-1"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:06.482Z",
+      "agentId": "Agent-2",
+      "action": "PARTIAL_UPLOAD_FAILURE",
+      "data": {
+        "error": "Partial upload failed: Connection interrupted",
+        "method": "PUT",
+        "path": "/repos/octocat/stress-partial/contents/recovery-file.txt"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:06.482Z",
+      "agentId": "Agent-2",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "Partial upload failed: Connection interrupted",
+        "owner": "octocat",
+        "repo": "stress-partial",
+        "path": "recovery-file.txt",
+        "branch": "partial-commit-1"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:06.483Z",
+      "agentId": "Agent-2",
+      "action": "PARTIAL_COMMIT_RECOVERY_FAILED",
+      "data": {
+        "error": "Partial upload failed: Connection interrupted",
+        "repoName": "stress-partial",
+        "branchName": "partial-commit-1"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:07.517Z",
+      "agentId": "Agent-2",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "error": "State rehydration failed: Corrupted session data",
+        "repo": "stress-rehydrate-rehydrate-1"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:07.527Z",
+      "agentId": "Agent-2",
+      "action": "STATE_REHYDRATION_FAILED",
+      "data": {
+        "error": "State rehydration failed: Corrupted session data",
+        "repoName": "stress-rehydrate-rehydrate-1"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:10.127Z",
+      "agentId": "Agent-2",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "repo": "stress-rehydrate-rehydrate-1-recovered",
+        "repoId": 14
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:46:10.127Z",
+      "agentId": "Agent-2",
+      "action": "STATE_REHYDRATION_RECOVERY",
+      "data": {
+        "repoName": "stress-rehydrate-rehydrate-1"
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:45:00.013Z",
+      "agentId": "Agent-3",
+      "action": "REQUEST_BLOCKED",
+      "data": {
+        "error": "Service Unavailable: System experiencing high load",
+        "method": "POST",
+        "path": "/user/repos",
+        "context": {
+          "operationCount": 1,
+          "requestNumber": 1,
+          "agentId": "Agent-3"
+        }
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:00.019Z",
+      "agentId": "Agent-3",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "error": "Service Unavailable: System experiencing high load",
+        "repo": "stress-repo"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:08.445Z",
+      "agentId": "Agent-3",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "Not Found",
+        "owner": "octocat",
+        "repo": "stress-retry-retry-2",
+        "path": "retry-file-1.txt",
+        "branch": "main"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:08.445Z",
+      "agentId": "Agent-3",
+      "action": "STRESS_RETRY_FAILED",
+      "data": {
+        "error": "Not Found",
+        "attempt": 1,
+        "maxRetries": 8
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:11.365Z",
+      "agentId": "Agent-3",
+      "action": "CREATE_BRANCH",
+      "data": {
+        "error": "Not Found",
+        "owner": "octocat",
+        "repo": "stress-retry-retry-2",
+        "branch": "retry-branch-2"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:11.366Z",
+      "agentId": "Agent-3",
+      "action": "STRESS_RETRY_FAILED",
+      "data": {
+        "error": "Not Found",
+        "attempt": 2,
+        "maxRetries": 8
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:15.237Z",
+      "agentId": "Agent-3",
+      "action": "CREATE_BRANCH",
+      "data": {
+        "error": "Not Found",
+        "owner": "octocat",
+        "repo": "stress-retry-retry-2",
+        "branch": "retry-branch-3"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:15.237Z",
+      "agentId": "Agent-3",
+      "action": "STRESS_RETRY_FAILED",
+      "data": {
+        "error": "Not Found",
+        "attempt": 3,
+        "maxRetries": 8
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:20.549Z",
+      "agentId": "Agent-3",
+      "action": "CREATE_BRANCH",
+      "data": {
+        "error": "Not Found",
+        "owner": "octocat",
+        "repo": "stress-retry-retry-2",
+        "branch": "retry-branch-4"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:20.549Z",
+      "agentId": "Agent-3",
+      "action": "STRESS_RETRY_FAILED",
+      "data": {
+        "error": "Not Found",
+        "attempt": 4,
+        "maxRetries": 8
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:30.760Z",
+      "agentId": "Agent-3",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "Not Found",
+        "owner": "octocat",
+        "repo": "stress-retry-retry-2",
+        "path": "retry-file-5.txt",
+        "branch": "main"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:30.760Z",
+      "agentId": "Agent-3",
+      "action": "STRESS_RETRY_FAILED",
+      "data": {
+        "error": "Not Found",
+        "attempt": 5,
+        "maxRetries": 8
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:43.773Z",
+      "agentId": "Agent-3",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "Not Found",
+        "owner": "octocat",
+        "repo": "stress-retry-retry-2",
+        "path": "retry-file-6.txt",
+        "branch": "main"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:43.776Z",
+      "agentId": "Agent-3",
+      "action": "STRESS_RETRY_FAILED",
+      "data": {
+        "error": "Not Found",
+        "attempt": 6,
+        "maxRetries": 8
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:57.042Z",
+      "agentId": "Agent-3",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "repo": "stress-retry-retry-2",
+        "repoId": 10
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:45:57.042Z",
+      "agentId": "Agent-3",
+      "action": "STRESS_RETRY_SUCCESS",
+      "data": {
+        "attempt": 7,
+        "operation": ""
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:46:00.896Z",
+      "agentId": "Agent-3",
+      "action": "PARTIAL_UPLOAD_FAILURE",
+      "data": {
+        "error": "Partial upload failed: Connection interrupted",
+        "method": "PUT",
+        "path": "/repos/octocat/stress-partial/contents/large-file.txt"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:00.896Z",
+      "agentId": "Agent-3",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "Partial upload failed: Connection interrupted",
+        "owner": "octocat",
+        "repo": "stress-partial",
+        "path": "large-file.txt",
+        "branch": "partial-commit-2"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:00.896Z",
+      "agentId": "Agent-3",
+      "action": "PARTIAL_COMMIT_FAILED",
+      "data": {
+        "error": "Partial upload failed: Connection interrupted",
+        "repoName": "stress-partial",
+        "branchName": "partial-commit-2"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:04.940Z",
+      "agentId": "Agent-3",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "Not Found",
+        "owner": "octocat",
+        "repo": "stress-partial",
+        "path": "recovery-file.txt",
+        "branch": "partial-commit-2"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:04.940Z",
+      "agentId": "Agent-3",
+      "action": "PARTIAL_COMMIT_RECOVERY_FAILED",
+      "data": {
+        "error": "Not Found",
+        "repoName": "stress-partial",
+        "branchName": "partial-commit-2"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:08.692Z",
+      "agentId": "Agent-3",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "repo": "stress-rehydrate-rehydrate-2",
+        "repoId": 11
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:46:08.702Z",
+      "agentId": "Agent-3",
+      "action": "STATE_REHYDRATION_UNEXPECTED_SUCCESS",
+      "data": {
+        "repoName": "stress-rehydrate-rehydrate-2"
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:45:00.314Z",
+      "agentId": "Agent-4",
+      "action": "REQUEST_BLOCKED",
+      "data": {
+        "error": "Service Unavailable: System experiencing high load",
+        "method": "POST",
+        "path": "/user/repos",
+        "context": {
+          "operationCount": 1,
+          "requestNumber": 1,
+          "agentId": "Agent-4"
+        }
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:00.314Z",
+      "agentId": "Agent-4",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "error": "Service Unavailable: System experiencing high load",
+        "repo": "stress-repo"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:07.652Z",
+      "agentId": "Agent-4",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "repo": "stress-retry-retry-3",
+        "repoId": 6
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:45:07.652Z",
+      "agentId": "Agent-4",
+      "action": "STRESS_RETRY_SUCCESS",
+      "data": {
+        "attempt": 1,
+        "operation": ""
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:46:06.382Z",
+      "agentId": "Agent-4",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "Request body too large",
+        "owner": "octocat",
+        "repo": "stress-partial",
+        "path": "large-file.txt",
+        "branch": "partial-commit-3"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:06.382Z",
+      "agentId": "Agent-4",
+      "action": "PARTIAL_COMMIT_FAILED",
+      "data": {
+        "error": "Request body too large",
+        "repoName": "stress-partial",
+        "branchName": "partial-commit-3"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:06.384Z",
+      "agentId": "Agent-4",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "socket hang up",
+        "owner": "octocat",
+        "repo": "stress-partial",
+        "path": "recovery-file.txt",
+        "branch": "partial-commit-3"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:06.384Z",
+      "agentId": "Agent-4",
+      "action": "PARTIAL_COMMIT_RECOVERY_FAILED",
+      "data": {
+        "error": "socket hang up",
+        "repoName": "stress-partial",
+        "branchName": "partial-commit-3"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:07.518Z",
+      "agentId": "Agent-4",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "error": "State rehydration failed: Corrupted session data",
+        "repo": "stress-rehydrate-rehydrate-3"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:07.531Z",
+      "agentId": "Agent-4",
+      "action": "STATE_REHYDRATION_FAILED",
+      "data": {
+        "error": "State rehydration failed: Corrupted session data",
+        "repoName": "stress-rehydrate-rehydrate-3"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:10.128Z",
+      "agentId": "Agent-4",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "repo": "stress-rehydrate-rehydrate-3-recovered",
+        "repoId": 15
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:46:10.128Z",
+      "agentId": "Agent-4",
+      "action": "STATE_REHYDRATION_RECOVERY",
+      "data": {
+        "repoName": "stress-rehydrate-rehydrate-3"
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:44:59.994Z",
+      "agentId": "Agent-5",
+      "action": "REQUEST_BLOCKED",
+      "data": {
+        "error": "Service Unavailable: System experiencing high load",
+        "method": "POST",
+        "path": "/user/repos",
+        "context": {
+          "operationCount": 1,
+          "requestNumber": 1,
+          "agentId": "Agent-5"
+        }
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:00.009Z",
+      "agentId": "Agent-5",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "error": "Service Unavailable: System experiencing high load",
+        "repo": "stress-repo"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:08.189Z",
+      "agentId": "Agent-5",
+      "action": "CREATE_BRANCH",
+      "data": {
+        "error": "Not Found",
+        "owner": "octocat",
+        "repo": "stress-retry-retry-4",
+        "branch": "retry-branch-1"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:08.190Z",
+      "agentId": "Agent-5",
+      "action": "STRESS_RETRY_FAILED",
+      "data": {
+        "error": "Not Found",
+        "attempt": 1,
+        "maxRetries": 8
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:45:10.548Z",
+      "agentId": "Agent-5",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "repo": "stress-retry-retry-4",
+        "repoId": 8
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:45:10.549Z",
+      "agentId": "Agent-5",
+      "action": "STRESS_RETRY_SUCCESS",
+      "data": {
+        "attempt": 2,
+        "operation": ""
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:46:07.505Z",
+      "agentId": "Agent-5",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "Request body too large",
+        "owner": "octocat",
+        "repo": "stress-partial",
+        "path": "large-file.txt",
+        "branch": "partial-commit-4"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:07.505Z",
+      "agentId": "Agent-5",
+      "action": "PARTIAL_COMMIT_FAILED",
+      "data": {
+        "error": "Request body too large",
+        "repoName": "stress-partial",
+        "branchName": "partial-commit-4"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:07.506Z",
+      "agentId": "Agent-5",
+      "action": "CREATE_FILE",
+      "data": {
+        "error": "socket hang up",
+        "owner": "octocat",
+        "repo": "stress-partial",
+        "path": "recovery-file.txt",
+        "branch": "partial-commit-4"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:07.506Z",
+      "agentId": "Agent-5",
+      "action": "PARTIAL_COMMIT_RECOVERY_FAILED",
+      "data": {
+        "error": "socket hang up",
+        "repoName": "stress-partial",
+        "branchName": "partial-commit-4"
+      },
+      "success": false
+    },
+    {
+      "timestamp": "2026-05-04T00:46:09.209Z",
+      "agentId": "Agent-5",
+      "action": "CREATE_REPOSITORY",
+      "data": {
+        "repo": "stress-rehydrate-rehydrate-4",
+        "repoId": 12
+      },
+      "success": true
+    },
+    {
+      "timestamp": "2026-05-04T00:46:09.209Z",
+      "agentId": "Agent-5",
+      "action": "STATE_REHYDRATION_UNEXPECTED_SUCCESS",
+      "data": {
+        "repoName": "stress-rehydrate-rehydrate-4"
+      },
+      "success": true
+    }
+  ],
+  "agentDetails": [
+    {
+      "agentId": "Agent-1",
+      "operationCount": 10,
+      "logs": [
+        {
+          "timestamp": "2026-05-04T00:45:00.312Z",
+          "agentId": "Agent-1",
+          "action": "REQUEST_BLOCKED",
+          "data": {
+            "error": "Service Unavailable: System experiencing high load",
+            "method": "POST",
+            "path": "/user/repos",
+            "context": {
+              "operationCount": 1,
+              "requestNumber": 1,
+              "agentId": "Agent-1"
+            }
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:00.313Z",
+          "agentId": "Agent-1",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "error": "Service Unavailable: System experiencing high load",
+            "repo": "stress-repo"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:04.111Z",
+          "agentId": "Agent-1",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "race-test-1777855502943",
+            "repoId": 5
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:45:05.275Z",
+          "agentId": "Agent-1",
+          "action": "REQUEST_BLOCKED",
+          "data": {
+            "error": "Service Unavailable: System experiencing high load",
+            "method": "POST",
+            "path": "/repos/octocat/race-test-1777855502943-Agent-1-1777855502943/git/refs",
+            "context": {
+              "operationCount": 4,
+              "requestNumber": 4,
+              "agentId": "Agent-1"
+            }
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:05.275Z",
+          "agentId": "Agent-1",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "error": "Service Unavailable: System experiencing high load",
+            "owner": "octocat",
+            "repo": "race-test-1777855502943-Agent-1-1777855502943",
+            "branch": "race-condition-branch"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:06.480Z",
+          "agentId": "Agent-1",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "error": "Not Found",
+            "owner": "octocat",
+            "repo": "stress-retry-retry-0",
+            "branch": "retry-branch-1"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:06.480Z",
+          "agentId": "Agent-1",
+          "action": "STRESS_RETRY_FAILED",
+          "data": {
+            "error": "Not Found",
+            "attempt": 1,
+            "maxRetries": 8
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:09.420Z",
+          "agentId": "Agent-1",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "stress-retry-retry-0",
+            "repoId": 7
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:45:09.421Z",
+          "agentId": "Agent-1",
+          "action": "STRESS_RETRY_SUCCESS",
+          "data": {
+            "attempt": 2,
+            "operation": ""
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:46:04.152Z",
+          "agentId": "Agent-1",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "Request body too large",
+            "owner": "octocat",
+            "repo": "stress-partial",
+            "path": "large-file.txt",
+            "branch": "partial-commit-0"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:04.152Z",
+          "agentId": "Agent-1",
+          "action": "PARTIAL_COMMIT_FAILED",
+          "data": {
+            "error": "Request body too large",
+            "repoName": "stress-partial",
+            "branchName": "partial-commit-0"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:04.236Z",
+          "agentId": "Agent-1",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "socket hang up",
+            "owner": "octocat",
+            "repo": "stress-partial",
+            "path": "recovery-file.txt",
+            "branch": "partial-commit-0"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:04.236Z",
+          "agentId": "Agent-1",
+          "action": "PARTIAL_COMMIT_RECOVERY_FAILED",
+          "data": {
+            "error": "socket hang up",
+            "repoName": "stress-partial",
+            "branchName": "partial-commit-0"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:07.517Z",
+          "agentId": "Agent-1",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "error": "State rehydration failed: Corrupted session data",
+            "repo": "stress-rehydrate-rehydrate-0"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:07.518Z",
+          "agentId": "Agent-1",
+          "action": "STATE_REHYDRATION_FAILED",
+          "data": {
+            "error": "State rehydration failed: Corrupted session data",
+            "repoName": "stress-rehydrate-rehydrate-0"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:09.586Z",
+          "agentId": "Agent-1",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "stress-rehydrate-rehydrate-0-recovered",
+            "repoId": 13
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:46:09.586Z",
+          "agentId": "Agent-1",
+          "action": "STATE_REHYDRATION_RECOVERY",
+          "data": {
+            "repoName": "stress-rehydrate-rehydrate-0"
+          },
+          "success": true
+        }
+      ]
+    },
+    {
+      "agentId": "Agent-2",
+      "operationCount": 10,
+      "logs": [
+        {
+          "timestamp": "2026-05-04T00:45:02.933Z",
+          "agentId": "Agent-2",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "stress-repo",
+            "repoId": 4
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:45:07.887Z",
+          "agentId": "Agent-2",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "error": "Not Found",
+            "owner": "octocat",
+            "repo": "stress-retry-retry-1",
+            "branch": "retry-branch-1"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:07.888Z",
+          "agentId": "Agent-2",
+          "action": "STRESS_RETRY_FAILED",
+          "data": {
+            "error": "Not Found",
+            "attempt": 1,
+            "maxRetries": 8
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:10.890Z",
+          "agentId": "Agent-2",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "error": "Not Found",
+            "owner": "octocat",
+            "repo": "stress-retry-retry-1",
+            "branch": "retry-branch-2"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:10.890Z",
+          "agentId": "Agent-2",
+          "action": "STRESS_RETRY_FAILED",
+          "data": {
+            "error": "Not Found",
+            "attempt": 2,
+            "maxRetries": 8
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:14.796Z",
+          "agentId": "Agent-2",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "Not Found",
+            "owner": "octocat",
+            "repo": "stress-retry-retry-1",
+            "path": "retry-file-3.txt",
+            "branch": "main"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:14.796Z",
+          "agentId": "Agent-2",
+          "action": "STRESS_RETRY_FAILED",
+          "data": {
+            "error": "Not Found",
+            "attempt": 3,
+            "maxRetries": 8
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:20.842Z",
+          "agentId": "Agent-2",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "error": "Not Found",
+            "owner": "octocat",
+            "repo": "stress-retry-retry-1",
+            "branch": "retry-branch-4"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:20.843Z",
+          "agentId": "Agent-2",
+          "action": "STRESS_RETRY_FAILED",
+          "data": {
+            "error": "Not Found",
+            "attempt": 4,
+            "maxRetries": 8
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:31.501Z",
+          "agentId": "Agent-2",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "stress-retry-retry-1",
+            "repoId": 9
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:45:31.501Z",
+          "agentId": "Agent-2",
+          "action": "STRESS_RETRY_SUCCESS",
+          "data": {
+            "attempt": 5,
+            "operation": ""
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:46:05.788Z",
+          "agentId": "Agent-2",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "Request body too large",
+            "owner": "octocat",
+            "repo": "stress-partial",
+            "path": "large-file.txt",
+            "branch": "partial-commit-1"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:05.789Z",
+          "agentId": "Agent-2",
+          "action": "PARTIAL_COMMIT_FAILED",
+          "data": {
+            "error": "Request body too large",
+            "repoName": "stress-partial",
+            "branchName": "partial-commit-1"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:06.482Z",
+          "agentId": "Agent-2",
+          "action": "PARTIAL_UPLOAD_FAILURE",
+          "data": {
+            "error": "Partial upload failed: Connection interrupted",
+            "method": "PUT",
+            "path": "/repos/octocat/stress-partial/contents/recovery-file.txt"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:06.482Z",
+          "agentId": "Agent-2",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "Partial upload failed: Connection interrupted",
+            "owner": "octocat",
+            "repo": "stress-partial",
+            "path": "recovery-file.txt",
+            "branch": "partial-commit-1"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:06.483Z",
+          "agentId": "Agent-2",
+          "action": "PARTIAL_COMMIT_RECOVERY_FAILED",
+          "data": {
+            "error": "Partial upload failed: Connection interrupted",
+            "repoName": "stress-partial",
+            "branchName": "partial-commit-1"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:07.517Z",
+          "agentId": "Agent-2",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "error": "State rehydration failed: Corrupted session data",
+            "repo": "stress-rehydrate-rehydrate-1"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:07.527Z",
+          "agentId": "Agent-2",
+          "action": "STATE_REHYDRATION_FAILED",
+          "data": {
+            "error": "State rehydration failed: Corrupted session data",
+            "repoName": "stress-rehydrate-rehydrate-1"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:10.127Z",
+          "agentId": "Agent-2",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "stress-rehydrate-rehydrate-1-recovered",
+            "repoId": 14
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:46:10.127Z",
+          "agentId": "Agent-2",
+          "action": "STATE_REHYDRATION_RECOVERY",
+          "data": {
+            "repoName": "stress-rehydrate-rehydrate-1"
+          },
+          "success": true
+        }
+      ]
+    },
+    {
+      "agentId": "Agent-3",
+      "operationCount": 11,
+      "logs": [
+        {
+          "timestamp": "2026-05-04T00:45:00.013Z",
+          "agentId": "Agent-3",
+          "action": "REQUEST_BLOCKED",
+          "data": {
+            "error": "Service Unavailable: System experiencing high load",
+            "method": "POST",
+            "path": "/user/repos",
+            "context": {
+              "operationCount": 1,
+              "requestNumber": 1,
+              "agentId": "Agent-3"
+            }
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:00.019Z",
+          "agentId": "Agent-3",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "error": "Service Unavailable: System experiencing high load",
+            "repo": "stress-repo"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:08.445Z",
+          "agentId": "Agent-3",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "Not Found",
+            "owner": "octocat",
+            "repo": "stress-retry-retry-2",
+            "path": "retry-file-1.txt",
+            "branch": "main"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:08.445Z",
+          "agentId": "Agent-3",
+          "action": "STRESS_RETRY_FAILED",
+          "data": {
+            "error": "Not Found",
+            "attempt": 1,
+            "maxRetries": 8
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:11.365Z",
+          "agentId": "Agent-3",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "error": "Not Found",
+            "owner": "octocat",
+            "repo": "stress-retry-retry-2",
+            "branch": "retry-branch-2"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:11.366Z",
+          "agentId": "Agent-3",
+          "action": "STRESS_RETRY_FAILED",
+          "data": {
+            "error": "Not Found",
+            "attempt": 2,
+            "maxRetries": 8
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:15.237Z",
+          "agentId": "Agent-3",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "error": "Not Found",
+            "owner": "octocat",
+            "repo": "stress-retry-retry-2",
+            "branch": "retry-branch-3"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:15.237Z",
+          "agentId": "Agent-3",
+          "action": "STRESS_RETRY_FAILED",
+          "data": {
+            "error": "Not Found",
+            "attempt": 3,
+            "maxRetries": 8
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:20.549Z",
+          "agentId": "Agent-3",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "error": "Not Found",
+            "owner": "octocat",
+            "repo": "stress-retry-retry-2",
+            "branch": "retry-branch-4"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:20.549Z",
+          "agentId": "Agent-3",
+          "action": "STRESS_RETRY_FAILED",
+          "data": {
+            "error": "Not Found",
+            "attempt": 4,
+            "maxRetries": 8
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:30.760Z",
+          "agentId": "Agent-3",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "Not Found",
+            "owner": "octocat",
+            "repo": "stress-retry-retry-2",
+            "path": "retry-file-5.txt",
+            "branch": "main"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:30.760Z",
+          "agentId": "Agent-3",
+          "action": "STRESS_RETRY_FAILED",
+          "data": {
+            "error": "Not Found",
+            "attempt": 5,
+            "maxRetries": 8
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:43.773Z",
+          "agentId": "Agent-3",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "Not Found",
+            "owner": "octocat",
+            "repo": "stress-retry-retry-2",
+            "path": "retry-file-6.txt",
+            "branch": "main"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:43.776Z",
+          "agentId": "Agent-3",
+          "action": "STRESS_RETRY_FAILED",
+          "data": {
+            "error": "Not Found",
+            "attempt": 6,
+            "maxRetries": 8
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:57.042Z",
+          "agentId": "Agent-3",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "stress-retry-retry-2",
+            "repoId": 10
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:45:57.042Z",
+          "agentId": "Agent-3",
+          "action": "STRESS_RETRY_SUCCESS",
+          "data": {
+            "attempt": 7,
+            "operation": ""
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:46:00.896Z",
+          "agentId": "Agent-3",
+          "action": "PARTIAL_UPLOAD_FAILURE",
+          "data": {
+            "error": "Partial upload failed: Connection interrupted",
+            "method": "PUT",
+            "path": "/repos/octocat/stress-partial/contents/large-file.txt"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:00.896Z",
+          "agentId": "Agent-3",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "Partial upload failed: Connection interrupted",
+            "owner": "octocat",
+            "repo": "stress-partial",
+            "path": "large-file.txt",
+            "branch": "partial-commit-2"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:00.896Z",
+          "agentId": "Agent-3",
+          "action": "PARTIAL_COMMIT_FAILED",
+          "data": {
+            "error": "Partial upload failed: Connection interrupted",
+            "repoName": "stress-partial",
+            "branchName": "partial-commit-2"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:04.940Z",
+          "agentId": "Agent-3",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "Not Found",
+            "owner": "octocat",
+            "repo": "stress-partial",
+            "path": "recovery-file.txt",
+            "branch": "partial-commit-2"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:04.940Z",
+          "agentId": "Agent-3",
+          "action": "PARTIAL_COMMIT_RECOVERY_FAILED",
+          "data": {
+            "error": "Not Found",
+            "repoName": "stress-partial",
+            "branchName": "partial-commit-2"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:08.692Z",
+          "agentId": "Agent-3",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "stress-rehydrate-rehydrate-2",
+            "repoId": 11
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:46:08.702Z",
+          "agentId": "Agent-3",
+          "action": "STATE_REHYDRATION_UNEXPECTED_SUCCESS",
+          "data": {
+            "repoName": "stress-rehydrate-rehydrate-2"
+          },
+          "success": true
+        }
+      ]
+    },
+    {
+      "agentId": "Agent-4",
+      "operationCount": 6,
+      "logs": [
+        {
+          "timestamp": "2026-05-04T00:45:00.314Z",
+          "agentId": "Agent-4",
+          "action": "REQUEST_BLOCKED",
+          "data": {
+            "error": "Service Unavailable: System experiencing high load",
+            "method": "POST",
+            "path": "/user/repos",
+            "context": {
+              "operationCount": 1,
+              "requestNumber": 1,
+              "agentId": "Agent-4"
+            }
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:00.314Z",
+          "agentId": "Agent-4",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "error": "Service Unavailable: System experiencing high load",
+            "repo": "stress-repo"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:07.652Z",
+          "agentId": "Agent-4",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "stress-retry-retry-3",
+            "repoId": 6
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:45:07.652Z",
+          "agentId": "Agent-4",
+          "action": "STRESS_RETRY_SUCCESS",
+          "data": {
+            "attempt": 1,
+            "operation": ""
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:46:06.382Z",
+          "agentId": "Agent-4",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "Request body too large",
+            "owner": "octocat",
+            "repo": "stress-partial",
+            "path": "large-file.txt",
+            "branch": "partial-commit-3"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:06.382Z",
+          "agentId": "Agent-4",
+          "action": "PARTIAL_COMMIT_FAILED",
+          "data": {
+            "error": "Request body too large",
+            "repoName": "stress-partial",
+            "branchName": "partial-commit-3"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:06.384Z",
+          "agentId": "Agent-4",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "socket hang up",
+            "owner": "octocat",
+            "repo": "stress-partial",
+            "path": "recovery-file.txt",
+            "branch": "partial-commit-3"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:06.384Z",
+          "agentId": "Agent-4",
+          "action": "PARTIAL_COMMIT_RECOVERY_FAILED",
+          "data": {
+            "error": "socket hang up",
+            "repoName": "stress-partial",
+            "branchName": "partial-commit-3"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:07.518Z",
+          "agentId": "Agent-4",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "error": "State rehydration failed: Corrupted session data",
+            "repo": "stress-rehydrate-rehydrate-3"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:07.531Z",
+          "agentId": "Agent-4",
+          "action": "STATE_REHYDRATION_FAILED",
+          "data": {
+            "error": "State rehydration failed: Corrupted session data",
+            "repoName": "stress-rehydrate-rehydrate-3"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:10.128Z",
+          "agentId": "Agent-4",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "stress-rehydrate-rehydrate-3-recovered",
+            "repoId": 15
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:46:10.128Z",
+          "agentId": "Agent-4",
+          "action": "STATE_REHYDRATION_RECOVERY",
+          "data": {
+            "repoName": "stress-rehydrate-rehydrate-3"
+          },
+          "success": true
+        }
+      ]
+    },
+    {
+      "agentId": "Agent-5",
+      "operationCount": 6,
+      "logs": [
+        {
+          "timestamp": "2026-05-04T00:44:59.994Z",
+          "agentId": "Agent-5",
+          "action": "REQUEST_BLOCKED",
+          "data": {
+            "error": "Service Unavailable: System experiencing high load",
+            "method": "POST",
+            "path": "/user/repos",
+            "context": {
+              "operationCount": 1,
+              "requestNumber": 1,
+              "agentId": "Agent-5"
+            }
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:00.009Z",
+          "agentId": "Agent-5",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "error": "Service Unavailable: System experiencing high load",
+            "repo": "stress-repo"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:08.189Z",
+          "agentId": "Agent-5",
+          "action": "CREATE_BRANCH",
+          "data": {
+            "error": "Not Found",
+            "owner": "octocat",
+            "repo": "stress-retry-retry-4",
+            "branch": "retry-branch-1"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:08.190Z",
+          "agentId": "Agent-5",
+          "action": "STRESS_RETRY_FAILED",
+          "data": {
+            "error": "Not Found",
+            "attempt": 1,
+            "maxRetries": 8
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:45:10.548Z",
+          "agentId": "Agent-5",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "stress-retry-retry-4",
+            "repoId": 8
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:45:10.549Z",
+          "agentId": "Agent-5",
+          "action": "STRESS_RETRY_SUCCESS",
+          "data": {
+            "attempt": 2,
+            "operation": ""
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:46:07.505Z",
+          "agentId": "Agent-5",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "Request body too large",
+            "owner": "octocat",
+            "repo": "stress-partial",
+            "path": "large-file.txt",
+            "branch": "partial-commit-4"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:07.505Z",
+          "agentId": "Agent-5",
+          "action": "PARTIAL_COMMIT_FAILED",
+          "data": {
+            "error": "Request body too large",
+            "repoName": "stress-partial",
+            "branchName": "partial-commit-4"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:07.506Z",
+          "agentId": "Agent-5",
+          "action": "CREATE_FILE",
+          "data": {
+            "error": "socket hang up",
+            "owner": "octocat",
+            "repo": "stress-partial",
+            "path": "recovery-file.txt",
+            "branch": "partial-commit-4"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:07.506Z",
+          "agentId": "Agent-5",
+          "action": "PARTIAL_COMMIT_RECOVERY_FAILED",
+          "data": {
+            "error": "socket hang up",
+            "repoName": "stress-partial",
+            "branchName": "partial-commit-4"
+          },
+          "success": false
+        },
+        {
+          "timestamp": "2026-05-04T00:46:09.209Z",
+          "agentId": "Agent-5",
+          "action": "CREATE_REPOSITORY",
+          "data": {
+            "repo": "stress-rehydrate-rehydrate-4",
+            "repoId": 12
+          },
+          "success": true
+        },
+        {
+          "timestamp": "2026-05-04T00:46:09.209Z",
+          "agentId": "Agent-5",
+          "action": "STATE_REHYDRATION_UNEXPECTED_SUCCESS",
+          "data": {
+            "repoName": "stress-rehydrate-rehydrate-4"
+          },
+          "success": true
+        }
+      ]
+    }
+  ]
+}
