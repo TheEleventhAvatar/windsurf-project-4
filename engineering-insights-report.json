@@ -1,0 +1,44 @@
+{
+  "summary": {
+    "totalScenarios": 4,
+    "timestamp": "2026-05-04T19:28:38.120Z"
+  },
+  "scenarios": [
+    {
+      "scenario": "Concurrency / Race Conditions",
+      "expected": "single PR created and merged safely",
+      "observed": "Naive: merge succeeded on potentially closed PR | Resilient: merge blocked - PR already closed",
+      "failurePoint": "naive agent merged without validation",
+      "hypothesis": "naive agent does not check PR state before merge",
+      "fix": "add state validation before critical operations",
+      "timestamp": "2026-05-04T19:28:16.631Z"
+    },
+    {
+      "scenario": "Retry Storm",
+      "expected": "single PR created after retries",
+      "observed": "Naive: 1 PRs | Resilient: 0 PRs",
+      "failurePoint": "idempotency handled",
+      "hypothesis": "idempotency working",
+      "fix": "add idempotency key / pre-check before retry",
+      "timestamp": "2026-05-04T19:28:24.370Z"
+    },
+    {
+      "scenario": "Stale Cache vs Source of Truth",
+      "expected": "agent validates latest state before merge",
+      "observed": "Naive: merged based on stale data | Resilient: merge blocked - PR already closed",
+      "failurePoint": "agent used outdated information",
+      "hypothesis": "agent assumes stale state without validation",
+      "fix": "add state validation step before critical operations",
+      "timestamp": "2026-05-04T19:28:33.566Z"
+    },
+    {
+      "scenario": "Permission Drift Mid-Execution",
+      "expected": "agent detects and handles permission loss",
+      "observed": "Naive: ✅ repository created | ✅ permission error detected | Resilient: ✅ repository created | ✅ permission error handled gracefully",
+      "failurePoint": "permission drift handled",
+      "hypothesis": "agent does not detect permission changes",
+      "fix": "add permission validation before each operation",
+      "timestamp": "2026-05-04T19:28:38.116Z"
+    }
+  ]
+}

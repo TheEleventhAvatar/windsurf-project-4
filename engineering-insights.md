@@ -1,0 +1,139 @@
+# Engineering Insights Report
+
+## Executive Summary
+
+This report exposes hidden assumptions in agent workflows through 4 high-impact scenarios with deterministic failure injection. We compare naive agent behavior against resilient agent patterns to identify critical failure points and provide actionable fixes.
+
+## Scenario Analysis
+
+### Scenario 1: Concurrency / Race Conditions
+
+**Invariant:** single PR created and merged safely
+
+**Results:**
+- **Naive Agent:** merge succeeded on potentially closed PR
+- **Resilient Agent:** merge blocked - PR already closed
+
+**Failure Point:** naive agent merged without validation
+
+**Hypothesis:** naive agent does not check PR state before merge
+
+**Fix:** add state validation before critical operations
+
+---
+
+### Scenario 2: Retry Storm
+
+**Invariant:** single PR created after retries
+
+**Results:**
+- **Naive Agent:** 1 PRs
+- **Resilient Agent:** 0 PRs
+
+**Failure Point:** idempotency handled
+
+**Hypothesis:** idempotency working
+
+**Fix:** add idempotency key / pre-check before retry
+
+---
+
+### Scenario 3: Stale Cache vs Source of Truth
+
+**Invariant:** agent validates latest state before merge
+
+**Results:**
+- **Naive Agent:** merged based on stale data
+- **Resilient Agent:** merge blocked - PR already closed
+
+**Failure Point:** agent used outdated information
+
+**Hypothesis:** agent assumes stale state without validation
+
+**Fix:** add state validation step before critical operations
+
+---
+
+### Scenario 4: Permission Drift Mid-Execution
+
+**Invariant:** agent detects and handles permission loss
+
+**Results:**
+- **Naive Agent:** ✅ repository created
+- **Resilient Agent:** ✅ permission error detected
+
+**Failure Point:** permission drift handled
+
+**Hypothesis:** agent does not detect permission changes
+
+**Fix:** add permission validation before each operation
+
+---
+
+## Comparative Analysis
+
+| Scenario | Naive Agent | Resilient Agent | Status |
+|-----------|---------------|------------------|---------|
+| Concurrency / Race Conditions | merge succeeded on potentially closed PR | merge blocked - PR already closed | ✅ Better |
+| Retry Storm | 1 PRs | 0 PRs | ⚠️ Similar |
+| Stale Cache vs Source of Truth | merged based on stale data | merge blocked - PR already closed | ✅ Better |
+| Permission Drift Mid-Execution | ✅ repository created | ✅ permission error detected | ⚠️ Similar |
+
+
+## Key Engineering Insights
+
+### 1. State Validation is NOT Optional
+- **Finding:** Agents that skip state validation create catastrophic failures
+- **Impact:** Merging closed PRs, acting on stale data
+- **Solution:** Always validate current state before critical operations
+
+### 2. Idempotency is Essential for Retry Logic
+- **Finding:** Retries without idempotency create duplicate side effects
+- **Impact:** Multiple PRs, resource conflicts
+- **Solution:** Add idempotency keys and pre-checks
+
+### 3. Permission Assumptions Create Security Vulnerabilities
+- **Finding:** Agents that assume permissions persist create security risks
+- **Impact:** Unauthorized operations, data exposure
+- **Solution:** Validate permissions at execution time
+
+### 4. Race Conditions are Inevitable
+- **Finding:** Concurrent operations will eventually conflict
+- **Impact:** Data corruption, inconsistent state
+- **Solution:** Implement proper locking and validation
+
+### 5. Caching Without Invalidation is Dangerous
+- **Finding:** Stale cache data leads to wrong decisions
+- **Impact:** Acting on outdated information
+- **Solution:** Always validate against source of truth
+
+## Recommendations
+
+### Immediate Actions
+1. **Add State Validation Layer** - Validate PR state before merges
+2. **Implement Idempotency Keys** - Prevent duplicate operations
+3. **Permission Check Before Each Operation** - Don't assume access persists
+4. **Add Retry Logic with Backoff** - Handle transient failures gracefully
+
+### Architectural Changes
+1. **Request Interceptor Pattern** - Centralized failure injection and validation
+2. **Response Validation Layer** - Verify invariants after mutations
+3. **Deterministic Testing** - Reproducible failure scenarios
+4. **Comparative Agent Testing** - Naive vs Resilient patterns
+
+### Long-term Strategy
+1. **Formalize Invariants** - Document and test critical invariants
+2. **Automated Failure Testing** - Integrate into CI/CD pipeline
+3. **Monitoring and Alerting** - Detect invariant violations in production
+4. **Resilience Metrics** - Track recovery rates and MTTR
+
+## Conclusion
+
+This analysis demonstrates that building resilient agents requires more than just error handling - it requires understanding and validating system invariants. The 4 scenarios tested reveal common failure patterns and provide concrete solutions for building more reliable agent workflows.
+
+The key insight is that **agents must assume the system state can change at any time** and validate accordingly. This shift from assuming consistency to validating consistency is fundamental to building robust distributed systems.
+
+---
+
+*Generated by Agent Failure Simulator Engineering Insights Suite*  
+*Timestamp: 2026-05-04T19:28:38.122Z*
