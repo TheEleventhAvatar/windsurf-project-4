@@ -1,0 +1,144 @@
+{
+  "summary": {
+    "totalRisks": 2,
+    "criticalRisks": 2,
+    "highestRisk": "CRITICAL",
+    "timestamp": "2026-05-06T00:13:57.686Z"
+  },
+  "topRisks": [
+    {
+      "scenario": "Race Condition",
+      "failure": "Concurrent agents created conflicting production state",
+      "riskScore": {
+        "score": 162,
+        "level": "CRITICAL",
+        "components": {
+          "businessImpact": 65,
+          "technicalImpact": 70,
+          "likelihood": 0.6,
+          "severity": "HIGH",
+          "multiplier": 2
+        }
+      },
+      "productionConsequences": [
+        "Conflicting changes merged to production",
+        "Branch conflicts and code corruption",
+        "Lost work due to overwrite conflicts",
+        "Inconsistent production state",
+        "Difficult to rollback or identify issues"
+      ],
+      "realWorldDamage": {
+        "immediate": "Production corruption from conflicting merges",
+        "shortTerm": "Emergency debugging and manual conflict resolution",
+        "longTerm": "Data integrity issues and system instability"
+      },
+      "mitigation": [
+        "Implement distributed locking mechanisms",
+        "Use atomic operations for critical changes",
+        "Add conflict detection and resolution",
+        "Implement proper serialization for shared resources"
+      ]
+    },
+    {
+      "scenario": "Retry Storm",
+      "failure": "Non-idempotent retry logic creates duplicate PRs",
+      "riskScore": {
+        "score": 52,
+        "level": "MEDIUM",
+        "components": {
+          "businessImpact": 70,
+          "technicalImpact": 60,
+          "likelihood": 0.2,
+          "severity": "HIGH",
+          "multiplier": 2
+        }
+      },
+      "productionConsequences": [
+        "Duplicate CI/CD pipeline triggers",
+        "Multiple deployment attempts for same change",
+        "Resource waste and confusion",
+        "Potential for conflicting deployments",
+        "Alert fatigue from duplicate notifications"
+      ],
+      "realWorldDamage": {
+        "immediate": "Wasted compute resources and developer time",
+        "shortTerm": "Confusing deployment history and rollbacks",
+        "longTerm": "Eroded trust in automation systems"
+      },
+      "mitigation": [
+        "Implement idempotency keys for all write operations",
+        "Check for existing resources before retry",
+        "Use deduplication logic in retry mechanisms",
+        "Add monitoring for duplicate operations"
+      ]
+    }
+  ],
+  "allRisks": [
+    {
+      "scenario": "Retry Storm",
+      "failure": "Non-idempotent retry logic creates duplicate PRs",
+      "riskScore": {
+        "score": 52,
+        "level": "MEDIUM",
+        "components": {
+          "businessImpact": 70,
+          "technicalImpact": 60,
+          "likelihood": 0.2,
+          "severity": "HIGH",
+          "multiplier": 2
+        }
+      },
+      "productionConsequences": [
+        "Duplicate CI/CD pipeline triggers",
+        "Multiple deployment attempts for same change",
+        "Resource waste and confusion",
+        "Potential for conflicting deployments",
+        "Alert fatigue from duplicate notifications"
+      ],
+      "realWorldDamage": {
+        "immediate": "Wasted compute resources and developer time",
+        "shortTerm": "Confusing deployment history and rollbacks",
+        "longTerm": "Eroded trust in automation systems"
+      },
+      "mitigation": [
+        "Implement idempotency keys for all write operations",
+        "Check for existing resources before retry",
+        "Use deduplication logic in retry mechanisms",
+        "Add monitoring for duplicate operations"
+      ]
+    },
+    {
+      "scenario": "Race Condition",
+      "failure": "Concurrent agents created conflicting production state",
+      "riskScore": {
+        "score": 162,
+        "level": "CRITICAL",
+        "components": {
+          "businessImpact": 65,
+          "technicalImpact": 70,
+          "likelihood": 0.6,
+          "severity": "HIGH",
+          "multiplier": 2
+        }
+      },
+      "productionConsequences": [
+        "Conflicting changes merged to production",
+        "Branch conflicts and code corruption",
+        "Lost work due to overwrite conflicts",
+        "Inconsistent production state",
+        "Difficult to rollback or identify issues"
+      ],
+      "realWorldDamage": {
+        "immediate": "Production corruption from conflicting merges",
+        "shortTerm": "Emergency debugging and manual conflict resolution",
+        "longTerm": "Data integrity issues and system instability"
+      },
+      "mitigation": [
+        "Implement distributed locking mechanisms",
+        "Use atomic operations for critical changes",
+        "Add conflict detection and resolution",
+        "Implement proper serialization for shared resources"
+      ]
+    }
+  ]
+}
