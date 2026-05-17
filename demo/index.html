@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo: API Success vs Browser Failure</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #f5f5f5;
+      color: #333;
+    }
+    h1 {
+      color: #222;
+      border-bottom: 3px solid #007acc;
+      padding-bottom: 10px;
+    }
+    h2 {
+      color: #0066cc;
+      margin-top: 30px;
+    }
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .card {
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .card.pass {
+      border-left: 4px solid #28a745;
+    }
+    .card.fail {
+      border-left: 4px solid #dc3545;
+    }
+    .status {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .pass .status {
+      color: #28a745;
+    }
+    .fail .status {
+      color: #dc3545;
+    }
+    .screenshot-section {
+      margin: 30px 0;
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .screenshot {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .screenshot img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-label {
+      padding: 10px;
+      background: #f9f9f9;
+      font-weight: bold;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: "Monaco", "Courier New", monospace;
+    }
+    .command {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-family: "Monaco", "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.4;
+      margin: 10px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: white;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background: #f9f9f9;
+      font-weight: bold;
+    }
+    .timeline {
+      list-style: none;
+      padding: 0;
+    }
+    .timeline li {
+      padding: 15px 0;
+      padding-left: 40px;
+      position: relative;
+      border-left: 2px solid #ddd;
+      margin-left: 10px;
+    }
+    .timeline li:before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      background: #007acc;
+      border: 3px solid white;
+      border-radius: 50%;
+      position: absolute;
+      left: -8px;
+      top: 18px;
+    }
+    .insight {
+      background: #fffacd;
+      border-left: 4px solid #ffd700;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 15px 0;
+    }
+    .insight::before {
+      content: "💡 ";
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎬 Demo: API Success ≠ Browser-Visible Success</h1>
+
+  <p>
+    A minimal, reproducible demonstration showing why autonomous agent evaluations
+    that only check API responses miss real end-to-end failures visible to users
+    in the browser.
+  </p>
+
+  <h2>The Problem</h2>
+  <p>
+    Autonomous workflows driven by agents typically:
+  </p>
+  <ul>
+    <li>Make API calls and check response codes (200, 201)</li>
+    <li>Assert that fields in responses indicate success</li>
+    <li>Assume the work is complete and proceed</li>
+  </ul>
+  <p>
+    But in distributed systems with eventual consistency, <strong>API success doesn't guarantee
+    immediate observable UI state change</strong>.
+  </p>
+
+  <h2>What This Demo Shows</h2>
+
+  <div class="comparison">
+    <div class="card pass">
+      <div class="status">✅ API-Level Test</div>
+      <p><strong>Test:</strong> Vitest (mock backend)</p>
+      <p><strong>Result:</strong> PASS</p>
+      <p>All API responses return success. Canonical backend state shows PR merged and issue closed.</p>
+    </div>
+    <div class="card fail">
+      <div class="status">❌ Browser-Level Test</div>
+      <p><strong>Test:</strong> Playwright (real browser)</p>
+      <p><strong>Result:</strong> FAIL</p>
+      <p>UI shows stale state immediately after API returns success. Webhook delay causes mismatch.</p>
+    </div>
+  </div>
+
+  <div class="insight">
+    Agent checking API only: "Success, moving on!"
+    User looking at browser: "Why is the PR still showing as Open?"
+  </div>
+
+  <h2>Visual Comparison</h2>
+
+  <div class="screenshot-section">
+    <h3>Step 1: API Returns Success (Status 200)</h3>
+    <div class="screenshot-pair">
+      <div class="screenshot">
+        <div class="screenshot-label">UI State: STALE</div>
+        <img src="demo-screenshots/04-after-merge-api-success-ui-stale.png" alt="API Success, UI Stale">
+      </div>
+      <div style="padding: 20px;">
+        <p><strong>Backend Canonical State:</strong></p>
+        <code>PR { id: 2, merged: true }</code><br>
+        <code>Issue { id: 1, open: false }</code>
+        <p style="margin-top: 15px;"><strong>Browser UI Shows:</strong></p>
+        <code>PR status: "Open"</code><br>
+        <code>Issue: "Open"</code>
+        <p style="margin-top: 15px; color: #dc3545;"><strong>⚠️ MISMATCH!</strong></p>
+        <p>API says merged, but UI still shows open</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="screenshot-section">
+    <h3>Step 2: After Webhook Delivery (~1000ms)</h3>
+    <div class="screenshot-pair">
+      <div class="screenshot">
+        <div class="screenshot-label">UI State: CONSISTENT</div>
+        <img src="demo-screenshots/05-after-webhook-ui-updated.png" alt="After Webhook, UI Updated">
+      </div>
+      <div style="padding: 20px;">
+        <p><strong>Backend Canonical State:</strong></p>
+        <code>PR { id: 2, merged: true }</code><br>
+        <code>Issue { id: 1, open: false }</code>
+        <p style="margin-top: 15px;"><strong>Browser UI Shows:</strong></p>
+        <code>PR status: "Merged"</code><br>
+        <code>Issue: "Closed"</code>
+        <p style="margin-top: 15px; color: #28a745;"><strong>✅ CONSISTENT</strong></p>
+        <p>Both API and UI now agree</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Workflow Timeline</h2>
+  <ol class="timeline">
+    <li><strong>Create Issue</strong> → API: 201 ✅</li>
+    <li><strong>Create Branch</strong> → API: 201 ✅</li>
+    <li><strong>Open PR</strong> → API: 201 ✅</li>
+    <li><strong>Merge PR</strong> → API: 200 ✅ (canonical state updated immediately)</li>
+    <li><strong>Webhook Delay</strong> → ~1000ms before UI cache receives event</li>
+    <li><strong>UI Updates</strong> → Browser reflects merged state</li>
+  </ol>
+
+  <h2>Test Results Summary</h2>
+  <table>
+    <tr>
+      <th>Test Layer</th>
+      <th>What It Tests</th>
+      <th>Result</th>
+      <th>Catches Bug?</th>
+    </tr>
+    <tr>
+      <td><strong>API-only</strong><br>(Vitest)</td>
+      <td>Response codes, JSON fields</td>
+      <td>✅ PASS</td>
+      <td>❌ NO</td>
+    </tr>
+    <tr>
+      <td><strong>Browser-level</strong><br>(Playwright)</td>
+      <td>Observable UI state immediately after API call</td>
+      <td>❌ FAIL</td>
+      <td>✅ YES</td>
+    </tr>
+    <tr>
+      <td><strong>Combined</strong></td>
+      <td>API + eventual consistency validation</td>
+      <td>🎯 Full picture</td>
+      <td>✅ YES</td>
+    </tr>
+  </table>
+
+  <h2>Quick Start</h2>
+
+  <div style="background: #f0f8ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
+    <h3>1. Install Dependencies</h3>
+    <div class="command">npm install --save-dev vitest playwright
+npx playwright install</div>
+
+    <h3>2. Run API-only Test (PASS)</h3>
+    <div class="command">npx vitest run tests/demo-api.test.ts</div>
+
+    <h3>3. Run Browser Test (FAIL)</h3>
+    <div class="command">npx vitest run tests/demo-browser.test.ts</div>
+
+    <h3>4. Run Visual Demo</h3>
+    <div class="command">npx ts-node demo/visual-demo.ts</div>
+
+    <p><em>The visual demo opens a live browser and captures screenshots showing the stale UI.</em></p>
+  </div>
+
+  <h2>Why This Matters</h2>
+
+  <p>
+    For autonomous agent workflows, this demonstrates a critical gap in evaluation approaches:
+  </p>
+
+  <ul>
+    <li>
+      <strong>API-only evals are insufficient</strong> — They check response codes and object fields,
+      but miss eventual consistency delays.
+    </li>
+    <li>
+      <strong>Browser-level evals are necessary</strong> — They catch what users actually see,
+      including stale states and race conditions.
+    </li>
+    <li>
+      <strong>Real production systems exhibit this</strong> — Webhooks, caches, and distributed
+      architecture make this a common edge case.
+    </li>
+    <li>
+      <strong>Agents need full-stack validation</strong> — Before proceeding after a workflow step,
+      agents should validate both API success AND observable UI consistency.
+    </li>
+  </ul>
+
+  <h2>Files</h2>
+  <ul>
+    <li><code>demo/backend.ts</code> — In-memory backend with delayed webhook queue</li>
+    <li><code>demo/ui.html</code> — Minimal static UI that relies on webhooks for updates</li>
+    <li><code>demo/visual-demo.ts</code> — Script that opens browser and captures screenshots</li>
+    <li><code>tests/demo-api.test.ts</code> — Vitest test (passes)</li>
+    <li><code>tests/demo-browser.test.ts</code> — Playwright test (fails at API layer but passes when checking UI immediately)</li>
+    <li><code>demo/DEMO-SUMMARY.md</code> — Full markdown explanation</li>
+  </ul>
+
+  <h2>Key Insight</h2>
+  <p style="font-size: 16px; font-weight: bold; color: #007acc; background: #f0f8ff; padding: 15px; border-radius: 5px;">
+    📍 API-level success ≠ correct observable end-state for autonomous workflows.<br>
+    Browser-level evaluation is necessary to catch real failures.
+  </p>
+
+  <footer style="margin-top: 60px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; text-align: center;">
+    <p>Minimal reproducible demo for AI agent evaluation infrastructure</p>
+  </footer>
+</body>
+</html>

@@ -1,56 +1,20 @@
 {
-  "name": "Agent Failure Simulator",
-  "description": "Simulate real-world failure scenarios in multi-step agent workflows",
+  "name": "GitHub Reliability Torture Suite",
+  "description": "Production-grade reliability testing for agent workflows using Vitest + Archal",
+  "type": "vitest",
+  "test": {
+    "command": "npm test",
+    "timeout": 30000,
+    "env": {
+      "ARCHAL_TOKEN": "{{.TwinToken}}",
+      "ARCHAL_GITHUB_API": "{{.TwinAPI}}/github/api"
+    }
+  },
   "scenarios": [
-    {
-      "name": "basic-workflow",
-      "description": "Test basic GitHub workflow without failures",
-      "success": [
-        "agent creates repository successfully",
-        "agent creates branch successfully", 
-        "agent makes commit successfully",
-        "agent creates pull request successfully",
-        "agent merges pull request successfully"
-      ]
-    },
-    {
-      "name": "permission-failure",
-      "description": "Test agent behavior when permissions change mid-flow",
-      "success": [
-        "agent detects permission loss",
-        "agent handles permission errors gracefully",
-        "agent provides clear error messages"
-      ]
-    },
-    {
-      "name": "stale-state-failure", 
-      "description": "Test agent behavior with stale/inconsistent state",
-      "success": [
-        "agent validates state before operations",
-        "agent detects stale PR state",
-        "agent avoids operations on closed PRs"
-      ]
-    },
-    {
-      "name": "api-error-failure",
-      "description": "Test agent handling of intermittent API failures",
-      "success": [
-        "agent implements retry logic",
-        "agent handles transient failures",
-        "agent recovers from API errors"
-      ]
-    }
-  ],
-  "agents": [
-    {
-      "name": "github-agent",
-      "type": "node",
-      "entry": "index.js",
-      "env": {
-        "ARCHAL_TOKEN": "{{.TwinToken}}",
-        "ARCHAL_GITHUB_API": "{{.TwinAPI}}/github/api"
-      }
-    }
+    "scenarios/concurrent-merge-race.md",
+    "scenarios/retry-storm.md",
+    "scenarios/stale-state-drift.md",
+    "scenarios/permission-drift.md"
   ],
   "twins": [
     {

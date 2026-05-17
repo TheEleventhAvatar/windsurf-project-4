@@ -1,0 +1,166 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.archal.ai/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+<AgentInstructions>
+
+## Submitting Feedback
+
+If you encounter incorrect, outdated, or confusing documentation on this page, submit feedback:
+
+POST https://docs.archal.ai/feedback
+
+```json
+{
+  "path": "/guides/vitest",
+  "feedback": "Description of the issue"
+}
+```
+
+Only submit feedback when you have something specific and actionable to report.
+
+</AgentInstructions>
+
+# Vitest integration
+
+> Use hosted clones from an existing Vitest suite.
+
+Use `archal/vitest` when you want hosted clones inside an existing Vitest
+suite. Your tests keep using normal SDK clients; Archal supplies the clone
+session and routes supported service traffic during the test run.
+
+<Note>
+  `archal/vitest` needs an auth token. Run `archal login` locally or set
+  `ARCHAL_TOKEN=arc_...` in CI. The first hosted session takes about 30 seconds;
+  later runs within the TTL reuse it.
+</Note>
+
+## Install
+
+```bash theme={null}
+pnpm add -D vitest archal
+archal login
+```
+
+In CI, set `ARCHAL_TOKEN` instead of running `archal login`.
+
+Route mode supports Discord, GitHub, Google Workspace, Jira, Linear, Ramp's
+primary API domain, Slack, Stripe, and Supabase. Use `archal run` or
+`archal clone start` for Telegram.
+
+## Add Archal to your existing `vitest.config.ts`
+
+If your project already has a `vitest.config.ts`, wrap `test:` with
+`withArchal`. It preserves your existing test config and adds Archal's setup,
+reporter, and session env.
+
+```ts theme={null}
+import { defineConfig } from 'vitest/config';
+import { withArchal } from 'archal/vitest';
+
+export default defineConfig({
+  test: withArchal(
+    {
+      // everything you already had in test:, unchanged
+      globals: true,
+      setupFiles: ['./test/my-setup.ts'],
+      coverage: { provider: 'v8' },
+    },
+    {
+      services: {
+        github: { mode: 'route', seed: 'small-project' },
+        stripe: { mode: 'route' },
+      },
+    },
+  ),
+});
+```
+
+If you're starting from scratch, pass `{}` as the first argument: `withArchal({}, { services: { ... } })`.
+
+## Or add a separate project in `vitest.workspace.ts`
+
+For monorepos or when only a subset of tests should hit clones, use a workspace:
+
+```ts theme={null}
+import { archalVitestProject } from 'archal/vitest';
+
+export default [
+  './vitest.config.ts', // your existing unit-test project untouched
+  archalVitestProject(
+    {
+      name: 'hosted-clones',
+      services: {
+        github: { mode: 'route', seed: 'small-project' },
+        stripe: { mode: 'route' },
+      },
+    },
+    { include: ['__tests__/hosted/**/*.test.ts'] },
+  ),
+];
+```
+
+Only tests matching the `include` glob will provision hosted clones; the rest run as normal Vitest.
+
+## Write a test
+
+Your test code uses normal SDK clients or direct HTTP calls. Route mode redirects supported service traffic to clones, so there is no SDK mock or base URL setup.
+
+```ts theme={null}
+import { Octokit } from '@octokit/rest';
+import { describe, it, expect } from 'vitest';
+
+describe('issue triage', () => {
+  it('creates and labels an issue', async () => {
+    // route mode redirects api.github.com calls to the clone automatically
+    const github = new Octokit();
+    const { data: issue } = await github.issues.create({
+      owner: 'acme',
+      repo: 'webapp',
+      title: 'Bug report',
+    });
+    expect(issue.title).toBe('Bug report');
+  });
+});
+```
+
+First run takes about 30 seconds. Subsequent runs reuse the cached session.
+
+## Seeds
+
+Seeds control starting state. Omit `seed:` for the default state, or pass a
+named seed such as `small-project`. See [Seeds](/guides/seeds).
+
+## Reset state between tests
+
+```ts theme={null}
+import { beforeEach } from 'vitest';
+import { resetArchalClones } from 'archal/vitest';
+
+beforeEach(async () => {
+  await resetArchalClones();
+});
+```
+
+This restores each clone to its post-seed state and drains the webhook queue. No cold-start — it's a local state snapshot reapplied to the existing session.
+
+## Inspect the session
+
+If you need to check which services, seeds, or versions the backend resolved:
+
+```ts theme={null}
+import { getInstalledArchalVitestSession } from 'archal/vitest';
+
+const session = getInstalledArchalVitestSession();
+console.log(session?.resolvedRuntime.resolvedServices);
+console.log(session?.resolvedRuntime.resolvedSeeds);
+```
+
+## Troubleshooting
+
+* **Real API responses instead of clone responses** — your test file isn't matched by the project's `include` glob.
+* **401 at setup** — `ARCHAL_TOKEN` isn't set (or `archal login` wasn't run).
+* **Test hangs for 30+ seconds on first run** — that's the ECS cold-start, not a hang.
+* **Reset isn't working** — call `resetArchalClones()` in `beforeEach`, not `beforeAll`.
+* **CI credential race** — when multiple jobs run in parallel, export `ARCHAL_TOKEN` directly instead of relying on `~/.archal/credentials.json`.
+* **Telegram needed** — use `archal run` or `archal clone start`; Vitest route mode supports the services listed above.

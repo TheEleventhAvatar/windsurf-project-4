@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Workflow Demo UI</title>
+    <style>
+      body { font-family: Arial, sans-serif; padding: 16px }
+      .pr { border: 1px solid #ddd; padding: 8px; margin: 8px 0 }
+      .status { font-weight: bold }
+    </style>
+  </head>
+  <body>
+    <h3>Mini Repo Dashboard</h3>
+    <div id="issue">Issue: <span id="issue-title">#1</span> — <span id="issue-state">Open</span></div>
+    <div id="prs">
+      <div class="pr" data-id="1">
+        PR #1: <span class="pr-title">Fix bug</span>
+        — status: <span class="status" id="pr-1-status">Open</span>
+      </div>
+    </div>
+
+    <script>
+      // Local UI cache — doesn't poll backend; relies on webhooks.
+      const cache = { prs: new Map(), issue: { id: 1, open: true } }
+
+      function render() {
+        const pr = cache.prs.values().next().value
+        const st = pr && pr.merged ? 'Merged' : 'Open'
+        document.getElementById('pr-1-status').textContent = st
+        document.getElementById('issue-state').textContent = cache.issue.open ? 'Open' : 'Closed'
+      }
+
+      // Called by backend/webhook deliverer
+      window.addPR = function(prId) {
+        cache.prs.set(prId, { id: prId, merged: false })
+        render()
+      }
+
+      window.receiveWebhook = function(event) {
+        if (event && event.type === 'pr.merged') {
+          const p = cache.prs.get(event.prId)
+          if (p) p.merged = true
+          cache.issue.open = false
+          render()
+        }
+      }
+
+      render()
+    </script>
+  </body>
+</html>

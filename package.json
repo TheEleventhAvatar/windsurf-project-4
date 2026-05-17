@@ -1,25 +1,45 @@
 {
-  "name": "agent-failure-simulator",
-  "version": "1.0.0",
-  "description": "Simulate real-world failure scenarios in multi-step agent workflows using Archal",
-  "main": "index.js",
+  "name": "github-reliability-torture-suite",
+  "version": "2.0.0",
+  "description": "Production-grade GitHub Reliability Torture Suite using Vitest + Archal for agent workflow reliability testing",
+  "main": "dist/index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:reliability": "vitest run --reporter=verbose --reporter=json --outputFile=reports/reliability-report.json",
+    "build": "tsc",
+    "dev": "tsc --watch",
     "archal:run": "npx archal run",
-    "archal:github": "npx archal twin start github"
+    "archal:github": "npx archal twin start github",
+    "archal:seed": "npx archal twin seed github small-project"
   },
   "keywords": [
     "archal",
     "agent",
-    "failure-simulation",
-    "testing"
+    "reliability",
+    "testing",
+    "github",
+    "vitest",
+    "typescript",
+    "torture-suite",
+    "concurrency",
+    "resilience"
   ],
-  "author": "",
+  "author": "Reliability Engineering Team",
   "license": "MIT",
   "devDependencies": {
-    "archal": "^0.9.14"
+    "@types/node": "^20.0.0",
+    "@vitest/coverage-v8": "^2.1.9",
+    "archal": "^0.9.14",
+    "playwright": "^1.60.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^2.1.9"
   },
   "dependencies": {
-    "@octokit/core": "^7.0.6"
+    "@octokit/core": "^7.0.6",
+    "@octokit/types": "^13.0.0"
   }
 }
